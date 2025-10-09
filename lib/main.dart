@@ -1,6 +1,5 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
-import 'package:soil/features/authentication/screens/register_screen.dart'; // Sesuaikan import
+import 'package:soil/features/authentication/screens/login_screen.dart'; // Import LoginScreen
 
 void main() {
   runApp(const MyApp());
@@ -12,14 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aplikasi IoT Kontainer',
+      title: 'Soil Sensor UI',
       theme: ThemeData(
-        // Atur Poppins sebagai font default untuk seluruh aplikasi
-        fontFamily: 'Poppins',
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xFFF8F8F8),
       ),
-      home: const RegisterScreen(),
+      // Start aplikasi di halaman LoginScreen
+      home: const LoginScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
