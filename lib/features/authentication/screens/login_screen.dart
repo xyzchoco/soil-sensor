@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import 'forgot_password_screen.dart'; // Tambahkan import ini
 import 'register_screen.dart'; // Tambahkan import ini
-import 'package:soil/features/screens/home_screen.dart'; // Pastikan import ini sesuai path HomeScreen Anda
 import 'package:soil/navigation/main_screen.dart'; // Pastikan import MainScreen
 
 class LoginScreen extends StatelessWidget {
