@@ -4,38 +4,41 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.2
+  sdk: '>=3.2.3 <4.0.0' # Versi SDK disesuaikan dengan standar modern
 
 dependencies:
   flutter:
     sdk: flutter
 
+  # Tambahkan dependensi lain yang mungkin Anda butuhkan di sini
   cupertino_icons: ^1.0.8
+  google_nav_bar: ^5.0.6
+  syncfusion_flutter_gauges: ^25.1.35
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
 
   uses-material-design: true
 
+  # Path aset gambar sudah benar
   assets:
     - assets/images/
   
+  # PERBAIKAN: Menggunakan path font yang benar dan membersihkan konflik
   fonts:
     - family: Poppins
       fonts:
-        - asset: fonts/Poppins-Regular.ttf
-        - asset: fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700
 
     - family: Montserrat
       fonts:
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
           weight: 700
-
-  
