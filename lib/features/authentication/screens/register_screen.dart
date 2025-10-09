@@ -35,7 +35,7 @@ class RegisterScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/register_background.jpg',
+              'assets/images/register_bg.jpg',
               fit: BoxFit.cover,
             ),
           ),
