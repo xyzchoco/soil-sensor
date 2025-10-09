@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 
 import 'forgot_password_screen.dart'; // Tambahkan import ini
 import 'register_screen.dart'; // Tambahkan import ini
+import 'package:soil/features/screens/home_screen.dart'; // Pastikan import ini sesuai path HomeScreen Anda
+import 'package:soil/navigation/main_screen.dart'; // Pastikan import MainScreen
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -107,16 +109,19 @@ class LoginScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const MainScreen(), // atau MainScreen(initialIndex: 0)
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(
-                            0xFFF07F2F,
-                          ), // Ganti warna jadi #F07F2F
+                          backgroundColor: const Color(0xFFF07F2F),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              30,
-                            ), // Corner radius 30
+                            borderRadius: BorderRadius.circular(30),
                           ),
                           elevation: 4,
                           shadowColor: Colors.orange.withOpacity(0.5),

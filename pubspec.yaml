@@ -9,9 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  
+  syncfusion_flutter_gauges: ^26.1.35
+  
   cupertino_icons: ^1.0.8
-
+  google_nav_bar: ^5.0.6
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

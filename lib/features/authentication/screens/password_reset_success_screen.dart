@@ -2,6 +2,7 @@ import 'dart:ui'; // Diperlukan untuk ImageFilter
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soil/features/authentication/screens/login_screen.dart'; // Tambahkan import ini
 
 class PasswordResetSuccessScreen extends StatelessWidget {
   const PasswordResetSuccessScreen({super.key});
@@ -124,8 +125,10 @@ class PasswordResetSuccessScreen extends StatelessWidget {
   Widget _buildSubmitButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // TODO: Tambahkan navigasi kembali ke halaman login
-        // Contoh: Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (route) => false,
+        );
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFFF07F2F),
