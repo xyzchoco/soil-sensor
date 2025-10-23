@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               _buildStatistikaHeader(),
               const SizedBox(height: 20),
-              _buildMainStatsCard(),
+              _buildMainStatsCard(), // Widget ini telah dimodifikasi
               const SizedBox(height: 20),
               _buildNpkCards(),
               const SizedBox(height: 20),
@@ -229,6 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // --- MODIFIKASI DIMULAI DI SINI ---
   Widget _buildMainStatsCard() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -245,65 +246,83 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Column(
         children: [
-          SizedBox(
-            height: 150,
-            child: SfRadialGauge(
-              axes: <RadialAxis>[
-                RadialAxis(
-                  minimum: 0,
-                  maximum: 40,
-                  showLabels: false,
-                  showTicks: false,
-                  startAngle: 165,
-                  endAngle: 15,
-                  axisLineStyle: const AxisLineStyle(
-                    thickness: 0.2,
-                    cornerStyle: CornerStyle.bothCurve,
-                    color: Color(0xFFE8E8E8),
-                    thicknessUnit: GaugeSizeUnit.factor,
-                  ),
-                  pointers: const <GaugePointer>[
-                    RangePointer(
-                      value: 24,
-                      width: 0.2,
-                      sizeUnit: GaugeSizeUnit.factor,
-                      cornerStyle: CornerStyle.bothCurve,
-                      gradient: SweepGradient(
-                        colors: <Color>[
-                          Color(0xFFF07F2F),
-                          Color(0xFFF28E27),
-                          Color(0xFFFAB911),
-                          Color(0xFFFFD900),
-                        ],
-                        stops: [0.0, 0.33, 0.66, 1.0],
-                      ),
-                    ),
-                  ],
-                  annotations: <GaugeAnnotation>[
-                    GaugeAnnotation(
-                      widget: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '24°C',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+          Row(
+            // <-- DITAMBAHKAN ROW
+            children: [
+              Expanded(
+                // <-- DITAMBAHKAN EXPANDED
+                child: SizedBox(
+                  height: 150,
+                  child: SfRadialGauge(
+                    axes: <RadialAxis>[
+                      RadialAxis(
+                        minimum: 0,
+                        maximum: 40,
+                        showLabels: false,
+                        showTicks: false,
+                        startAngle: 165,
+                        endAngle: 15,
+                        axisLineStyle: const AxisLineStyle(
+                          thickness: 0.2,
+                          cornerStyle: CornerStyle.bothCurve,
+                          color: Color(0xFFE8E8E8),
+                          thicknessUnit: GaugeSizeUnit.factor,
+                        ),
+                        pointers: const <GaugePointer>[
+                          RangePointer(
+                            value: 24,
+                            width: 0.2,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            cornerStyle: CornerStyle.bothCurve,
+                            gradient: SweepGradient(
+                              colors: <Color>[
+                                Color(0xFFF07F2F),
+                                Color(0xFFF28E27),
+                                Color(0xFFFAB911),
+                                Color(0xFFFFD900),
+                              ],
+                              stops: [0.0, 0.33, 0.66, 1.0],
                             ),
                           ),
-                          Text(
-                            'Temperatur',
-                            style: TextStyle(color: Colors.grey),
+                        ],
+                        annotations: <GaugeAnnotation>[
+                          GaugeAnnotation(
+                            widget: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '24°C',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Temperatur',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12, // <-- FONT DIUBAH DI SINI
+                                  ),
+                                ),
+                              ],
+                            ),
+                            angle: 90,
+                            positionFactor: 0,
                           ),
                         ],
                       ),
-                      angle: 90,
-                      positionFactor: 0,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+              Expanded(
+                // <-- WIDGET BARU DITAMBAHKAN DI SINI
+                child: SizedBox(
+                  height: 150,
+                  child: _buildDhlGauge(), // Memanggil helper gauge baru
+                ),
+              ),
+            ],
           ),
           Transform.translate(
             offset: const Offset(0, -25),
@@ -337,6 +356,72 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  // --- WIDGET HELPER BARU DITAMBAHKAN DI SINI ---
+  Widget _buildDhlGauge() {
+    // Ini adalah widget baru untuk Daya Hantar Listrik (kwh)
+    // Saya menggunakan nilai placeholder (45 kwh) dan max 100
+    return SfRadialGauge(
+      axes: <RadialAxis>[
+        RadialAxis(
+          minimum: 0,
+          maximum: 100, // Placeholder max untuk kwh
+          showLabels: false,
+          showTicks: false,
+          startAngle: 165,
+          endAngle: 15,
+          axisLineStyle: const AxisLineStyle(
+            thickness: 0.2,
+            cornerStyle: CornerStyle.bothCurve,
+            color: Color(0xFFE8E8E8),
+            thicknessUnit: GaugeSizeUnit.factor,
+          ),
+          pointers: const <GaugePointer>[
+            RangePointer(
+              value: 45, // Placeholder value
+              width: 0.2,
+              sizeUnit: GaugeSizeUnit.factor,
+              cornerStyle: CornerStyle.bothCurve,
+              gradient: SweepGradient(
+                // Warna baru
+                colors: <Color>[
+                  Color(0xFF7B61FF),
+                  Color(0xFFA6B4FF),
+                ],
+                stops: [0.0, 1.0],
+              ),
+            ),
+          ],
+          annotations: <GaugeAnnotation>[
+            GaugeAnnotation(
+              widget: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '45 kwh', // Teks baru
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Daya Hantar Listrik', // Teks baru
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12, // <-- FONT DIUBAH DI SINI
+                    ),
+                  ),
+                ],
+              ),
+              angle: 90,
+              positionFactor: 0,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+  // --- MODIFIKASI BERAKHIR DI SINI ---
 
   Widget _buildNpkCards() {
     return const Row(

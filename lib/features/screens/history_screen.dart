@@ -17,6 +17,7 @@ class HistoryItem {
   final int phosphor;
   final int kalium;
   final String fertility;
+  final double kwhValue;
 
   const HistoryItem({
     required this.id,
@@ -31,6 +32,7 @@ class HistoryItem {
     required this.phosphor,
     required this.kalium,
     required this.fertility,
+    required this.kwhValue,
   });
 }
 
@@ -100,9 +102,8 @@ class HistoryScreen extends StatelessWidget {
 
     for (var item in history) {
       // Ekstrak hanya tanggal dari string lengkap
-      final itemDateString = item.date
-          .substring(item.date.indexOf(',') + 2)
-          .trim();
+      final itemDateString =
+          item.date.substring(item.date.indexOf(',') + 2).trim();
       String key;
 
       if (itemDateString == todayString) {

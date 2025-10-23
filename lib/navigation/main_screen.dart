@@ -31,6 +31,7 @@ class _MainScreenState extends State<MainScreen> {
   static const int defaultP = 52;
   static const int defaultK = 22;
   static const String defaultFertility = '170 mg/kg';
+  static const double defaultKwh = 45.0; // Nilai dummy KWH dari home_screen
 
   final List<HistoryItem> _historyData = [];
 
@@ -41,6 +42,7 @@ class _MainScreenState extends State<MainScreen> {
 
     _historyData.addAll(
       [
+        // --- BARIS 44 (SEKITAR SINI) ---
         HistoryItem(
           id: 'h${DateTime.now().microsecondsSinceEpoch + 100}',
           time: "15:00",
@@ -54,7 +56,9 @@ class _MainScreenState extends State<MainScreen> {
           phosphor: 52,
           kalium: 22,
           fertility: defaultFertility,
+          kwhValue: defaultKwh, // <-- DITAMBAHKAN
         ),
+        // --- BARIS 58 (SEKITAR SINI) ---
         HistoryItem(
           id: 'k${DateTime.now().microsecondsSinceEpoch + 200}',
           time: "20:00",
@@ -68,8 +72,9 @@ class _MainScreenState extends State<MainScreen> {
           phosphor: 40,
           kalium: 30,
           fertility: '165 mg/kg',
+          kwhValue: defaultKwh, // <-- DITAMBAHKAN
         ),
-      ].reversed.toList(),
+      ].reversed.toList(), // Error List<dynamic> harusnya hilang setelah ini
     );
   }
 
@@ -88,6 +93,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void _addHistory() {
     final now = DateTime.now();
+    // --- BARIS 91 (SEKITAR SINI) ---
     final newEntry = HistoryItem(
       id: 'n${now.microsecondsSinceEpoch}',
       time:
@@ -103,6 +109,7 @@ class _MainScreenState extends State<MainScreen> {
       phosphor: defaultP,
       kalium: defaultK,
       fertility: defaultFertility,
+      kwhValue: defaultKwh, // <-- DITAMBAHKAN
     );
 
     setState(() {
@@ -126,6 +133,8 @@ class _MainScreenState extends State<MainScreen> {
       'Sabtu',
       'Minggu',
     ];
+    // Pastikan weekday valid (1-7)
+    if (weekday < 1 || weekday > 7) return '';
     return days[weekday - 1];
   }
 
@@ -144,6 +153,8 @@ class _MainScreenState extends State<MainScreen> {
       'November',
       'Desember',
     ];
+    // Pastikan month valid (1-12)
+    if (month < 1 || month > 12) return '';
     return months[month - 1];
   }
 
@@ -217,7 +228,9 @@ class _MainScreenState extends State<MainScreen> {
           borderRadius: BorderRadius.circular(35),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withAlpha(25),
+              // --- PERBAIKAN 'deprecated_member_use' ---
+              color:
+                  Colors.black.withAlpha(25), // Diganti dari withOpacity(0.1)
               blurRadius: 20,
               spreadRadius: 2,
               offset: const Offset(0, 4),
