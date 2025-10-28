@@ -190,11 +190,11 @@ class RegisterScreen extends StatelessWidget {
           right: 24,
           bottom: 24,
         ),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Text(
+            Text(
               "Ayo Buat Akun\nBaru",
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -206,8 +206,8 @@ class RegisterScreen extends StatelessWidget {
                 letterSpacing: -0.41,
               ),
             ),
-            const SizedBox(height: 8),
-            const Text(
+            SizedBox(height: 8),
+            Text(
               "Yuk, isi datamu biar bisa mulai belajar\ndan bermain!",
               style: TextStyle(
                 fontFamily: 'Poppins',

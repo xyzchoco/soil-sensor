@@ -92,12 +92,12 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
           color: const Color.fromARGB(255, 79, 186, 29),
           width: 2,
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: const Color(0x20000000),
+            color: Color(0x20000000),
             blurRadius: 10,
             spreadRadius: 2,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
         ],
       ),
@@ -239,9 +239,9 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: const Color(0x1A000000),
+            color: Color(0x1A000000),
             spreadRadius: 1,
             blurRadius: 10,
           ),

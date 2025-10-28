@@ -209,11 +209,11 @@ class LoginScreen extends StatelessWidget {
           right: 24,
           bottom: 24,
         ),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Text(
+            Text(
               "Selamat Datang\nKembali!",
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -224,8 +224,8 @@ class LoginScreen extends StatelessWidget {
                 letterSpacing: -0.41,
               ),
             ),
-            const SizedBox(height: 8),
-            const Text(
+            SizedBox(height: 8),
+            Text(
               "Sistem Pemantauan Tanah siap mendeteksi\nkondisi lahanmu secara real-time",
               style: TextStyle(
                 fontFamily: 'Poppins',

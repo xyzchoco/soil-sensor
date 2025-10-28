@@ -175,7 +175,8 @@ class ResetPasswordScreen extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => PasswordResetSuccessScreen(), // tanpa const
+            builder: (context) =>
+                const PasswordResetSuccessScreen(), // tanpa const
           ),
         );
       },

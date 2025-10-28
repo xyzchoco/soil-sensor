@@ -98,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
           color: const Color.fromARGB(255, 79, 186, 29),
           width: 2,
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: const Color(0x0D000000),
+            color: Color(0x0D000000),
             blurRadius: 8,
             spreadRadius: 2,
           ),
@@ -235,9 +235,9 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: const Color(0x1A000000),
+            color: Color(0x1A000000),
             spreadRadius: 1,
             blurRadius: 10,
           ),
@@ -279,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ],
-                  annotations: <GaugeAnnotation>[
+                  annotations: const <GaugeAnnotation>[
                     GaugeAnnotation(
                       widget: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
