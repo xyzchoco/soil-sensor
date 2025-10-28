@@ -190,6 +190,7 @@ class OtpVerificationScreen extends StatelessWidget {
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
           child: Container(
+            // ignore: deprecated_member_use
             decoration: BoxDecoration(color: Colors.white.withOpacity(0.1)),
           ),
         ),
@@ -250,6 +251,7 @@ class _OtpFormState extends State<_OtpForm> {
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             decoration: InputDecoration(
               filled: true,
+              // ignore: deprecated_member_use
               fillColor: Colors.white.withOpacity(0.5),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),

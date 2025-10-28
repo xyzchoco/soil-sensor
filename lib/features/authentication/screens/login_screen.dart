@@ -123,6 +123,7 @@ class LoginScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           elevation: 4,
+                          // ignore: deprecated_member_use
                           shadowColor: Colors.orange.withOpacity(0.5),
                         ),
                         child: const Text(
@@ -209,11 +210,11 @@ class LoginScreen extends StatelessWidget {
           right: 24,
           bottom: 24,
         ),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Text(
+            Text(
               "Selamat Datang\nKembali!",
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -224,8 +225,8 @@ class LoginScreen extends StatelessWidget {
                 letterSpacing: -0.41,
               ),
             ),
-            const SizedBox(height: 8),
-            const Text(
+            SizedBox(height: 8),
+            Text(
               "Sistem Pemantauan Tanah siap mendeteksi\nkondisi lahanmu secara real-time",
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -282,6 +283,7 @@ class LoginScreen extends StatelessWidget {
             ),
             prefixIcon: Icon(icon, color: Colors.grey),
             filled: true,
+            // ignore: deprecated_member_use
             fillColor: Colors.white.withOpacity(0.5),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -323,6 +325,7 @@ class LoginScreen extends StatelessWidget {
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(vertical: 14),
+        // ignore: deprecated_member_use
         backgroundColor: Colors.white.withOpacity(0.8),
         side: BorderSide(color: Colors.grey.shade300),
         shape: RoundedRectangleBorder(

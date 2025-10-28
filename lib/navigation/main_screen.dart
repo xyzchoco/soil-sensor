@@ -6,7 +6,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 // Pastikan path ini sesuai dengan struktur folder proyek Anda
 import 'package:soil/features/screens/home_screen.dart';
-import 'package:soil/features/screens/history_screen.dart';
+import 'package:soil/features/screens/history_screen.dart'; // HistoryItem harusnya HANYA dari sini
 import 'package:soil/features/screens/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -40,13 +40,18 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _scrollController = ScrollController()..addListener(_scrollListener);
 
+    // --- Format tanggal hari ini ---
+    final now = DateTime.now();
+    final todayDateString =
+        "${_getDayName(now.weekday)}, ${now.day} ${_getMonthName(now.month)} ${now.year}";
+
     _historyData.addAll(
       [
-        // --- BARIS 44 (SEKITAR SINI) ---
+        // ... (Data history Abang tetap sama, tidak saya ubah) ...
         HistoryItem(
           id: 'h${DateTime.now().microsecondsSinceEpoch + 100}',
           time: "15:00",
-          date: "${_getDayName(DateTime.tuesday)}, 20 Oktober 2025",
+          date: "${_getDayName(2)}, 20 Oktober 2025", // Selasa
           location: defaultLocation,
           temperature: 26.0,
           humidity: 6.2,
@@ -56,13 +61,12 @@ class _MainScreenState extends State<MainScreen> {
           phosphor: 52,
           kalium: 22,
           fertility: defaultFertility,
-          kwhValue: defaultKwh, // <-- DITAMBAHKAN
+          kwhValue: defaultKwh,
         ),
-        // --- BARIS 58 (SEKITAR SINI) ---
         HistoryItem(
           id: 'k${DateTime.now().microsecondsSinceEpoch + 200}',
           time: "20:00",
-          date: "${_getDayName(DateTime.monday)}, 19 Oktober 2025",
+          date: "${_getDayName(1)}, 19 Oktober 2025", // Senin
           location: 'Kebun Percobaan Natar',
           temperature: 25.5,
           humidity: 4.0,
@@ -72,10 +76,81 @@ class _MainScreenState extends State<MainScreen> {
           phosphor: 40,
           kalium: 30,
           fertility: '165 mg/kg',
-          kwhValue: defaultKwh, // <-- DITAMBAHKAN
+          kwhValue: defaultKwh,
         ),
-      ].reversed.toList(), // Error List<dynamic> harusnya hilang setelah ini
+        HistoryItem(
+            id: 't1',
+            time: "04:00",
+            date: todayDateString,
+            location: defaultLocation,
+            temperature: 22.0,
+            humidity: 5.0,
+            ph: 6.9,
+            conductivity: 8.1,
+            nitrogen: 11,
+            phosphor: 50,
+            kalium: 21,
+            fertility: '168 mg/kg',
+            kwhValue: 45.0),
+        HistoryItem(
+            id: 't2',
+            time: "08:30",
+            date: todayDateString,
+            location: defaultLocation,
+            temperature: 24.5,
+            humidity: 4.5,
+            ph: 7.0,
+            conductivity: 8.3,
+            nitrogen: 12,
+            phosphor: 51,
+            kalium: 22,
+            fertility: '170 mg/kg',
+            kwhValue: 45.0),
+        HistoryItem(
+            id: 't3',
+            time: "12:15",
+            date: todayDateString,
+            location: defaultLocation,
+            temperature: 27.0,
+            humidity: 3.8,
+            ph: 7.1,
+            conductivity: 8.6,
+            nitrogen: 13,
+            phosphor: 53,
+            kalium: 23,
+            fertility: '172 mg/kg',
+            kwhValue: 45.0),
+        HistoryItem(
+            id: 't4',
+            time: "16:45",
+            date: todayDateString,
+            location: defaultLocation,
+            temperature: 25.0,
+            humidity: 4.2,
+            ph: 7.0,
+            conductivity: 8.4,
+            nitrogen: 12,
+            phosphor: 52,
+            kalium: 22,
+            fertility: '170 mg/kg',
+            kwhValue: 45.0),
+        HistoryItem(
+            id: 't5',
+            time: "20:00",
+            date: todayDateString,
+            location: defaultLocation,
+            temperature: 23.0,
+            humidity: 5.5,
+            ph: 7.0,
+            conductivity: 8.0,
+            nitrogen: 11,
+            phosphor: 50,
+            kalium: 21,
+            fertility: '168 mg/kg',
+            kwhValue: 45.0),
+      ],
     );
+    _historyData.sort((a, b) => a.timeAsDouble.compareTo(b.timeAsDouble));
   }
 
   @override
@@ -85,15 +160,8 @@ class _MainScreenState extends State<MainScreen> {
     super.dispose();
   }
 
-  void _deleteHistoryItem(String id) {
-    setState(() {
-      _historyData.removeWhere((item) => item.id == id);
-    });
-  }
-
   void _addHistory() {
     final now = DateTime.now();
-    // --- BARIS 91 (SEKITAR SINI) ---
     final newEntry = HistoryItem(
       id: 'n${now.microsecondsSinceEpoch}',
       time:
@@ -109,11 +177,12 @@ class _MainScreenState extends State<MainScreen> {
       phosphor: defaultP,
       kalium: defaultK,
       fertility: defaultFertility,
-      kwhValue: defaultKwh, // <-- DITAMBAHKAN
+      kwhValue: defaultKwh,
     );
 
     setState(() {
       _historyData.insert(0, newEntry);
+      _historyData.sort((a, b) => a.timeAsDouble.compareTo(b.timeAsDouble));
     });
   }
 
@@ -133,7 +202,6 @@ class _MainScreenState extends State<MainScreen> {
       'Sabtu',
       'Minggu',
     ];
-    // Pastikan weekday valid (1-7)
     if (weekday < 1 || weekday > 7) return '';
     return days[weekday - 1];
   }
@@ -153,21 +221,32 @@ class _MainScreenState extends State<MainScreen> {
       'November',
       'Desember',
     ];
-    // Pastikan month valid (1-12)
     if (month < 1 || month > 12) return '';
     return months[month - 1];
   }
 
+  // --- PERBAIKAN 1: Logika listener diubah ---
   void _scrollListener() {
-    if (_currentIndex != 0 || !_scrollController.hasClients) return;
+    // Hapus 'if (_currentIndex != 0 ...)'
+    if (!_scrollController.hasClients) return;
+
     final direction = _scrollController.position.userScrollDirection;
-    if (direction == ScrollDirection.reverse && _isNavBarVisible) {
-      setState(() => _isNavBarVisible = false);
-    } else if (direction == ScrollDirection.forward && !_isNavBarVisible) {
-      setState(() => _isNavBarVisible = true);
+
+    // Jika scroll ke atas (forward) atau sudah mentok di atas
+    if (direction == ScrollDirection.forward || _scrollController.offset <= 0) {
+      if (!_isNavBarVisible) {
+        setState(() => _isNavBarVisible = true);
+      }
+    }
+    // Jika scroll ke bawah (reverse)
+    else if (direction == ScrollDirection.reverse) {
+      if (_isNavBarVisible) {
+        setState(() => _isNavBarVisible = false);
+      }
     }
   }
 
+  // --- PERBAIKAN 2: Kirim scrollController ke SEMUA screen ---
   Widget _buildPage(int index) {
     switch (index) {
       case 0:
@@ -177,12 +256,15 @@ class _MainScreenState extends State<MainScreen> {
         );
       case 1:
         return HistoryScreen(
+          scrollController: _scrollController, // <-- DITAMBAHKAN
           historyData: _historyData,
-          onDelete: _deleteHistoryItem,
+          // onDelete dihapus
         );
       case 2:
-        // PERBAIKAN: Memberikan fungsi _navigateToHome ke parameter onBack.
-        return ProfileScreen(onBack: _navigateToHome);
+        return ProfileScreen(
+          scrollController: _scrollController, // <-- DITAMBAHKAN
+          onBack: _navigateToHome,
+        );
       default:
         return HomeScreen(
           scrollController: _scrollController,
@@ -194,16 +276,18 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Warna kanvas F9F9F9 sudah ada di sini
+      backgroundColor: const Color(0xFFF9F9F9),
       body: Stack(
         children: [
           _buildPage(_currentIndex),
-          if (_currentIndex != 2)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: _buildFloatingNavBar(),
-            ),
+          // Navbar sekarang selalu ada (if-nya sudah dihapus)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _buildFloatingNavBar(),
+          ),
         ],
       ),
     );
@@ -228,9 +312,7 @@ class _MainScreenState extends State<MainScreen> {
           borderRadius: BorderRadius.circular(35),
           boxShadow: [
             BoxShadow(
-              // --- PERBAIKAN 'deprecated_member_use' ---
-              color:
-                  Colors.black.withAlpha(25), // Diganti dari withOpacity(0.1)
+              color: Colors.black.withAlpha(25),
               blurRadius: 20,
               spreadRadius: 2,
               offset: const Offset(0, 4),
@@ -246,16 +328,20 @@ class _MainScreenState extends State<MainScreen> {
               onTabChange: (index) => setState(() {
                 _currentIndex = index;
                 _isNavBarVisible = true;
-                if (index != 0 && _scrollController.hasClients) {
+
+                // --- PERBAIKAN 3: Reset scroll position saat ganti tab ---
+                if (_scrollController.hasClients &&
+                    _scrollController.offset > 0) {
                   _scrollController.jumpTo(0);
                 }
+                // --------------------------------------------------------
               }),
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               padding: const EdgeInsets.all(12),
               gap: 8,
               activeColor: Colors.white,
-              color: Colors.orange,
-              tabBackgroundColor: Colors.orange,
+              color: const Color(0xFFF07F2F),
+              tabBackgroundColor: const Color(0xFFF07F2F),
               tabBorderRadius: 25,
               tabs: const [
                 GButton(icon: Icons.home, text: 'Utama'),

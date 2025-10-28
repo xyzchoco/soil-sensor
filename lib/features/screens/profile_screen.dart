@@ -1,14 +1,21 @@
 // features/screens/profile_screen.dart
 
 import 'package:flutter/material.dart';
-import 'settings_screen.dart'; // Impor halaman pengaturan
+// import 'settings_screen.dart'; // <-- Dihapus, karena tombol Pengaturan tidak ada
 
 class ProfileScreen extends StatelessWidget {
   final VoidCallback onBack;
+  final ScrollController scrollController;
 
-  const ProfileScreen({super.key, required this.onBack});
+  // --- PERBAIKAN 1: Constructor dibenerin ---
+  const ProfileScreen({
+    super.key,
+    required this.onBack,
+    required this.scrollController, // <-- Harusnya di dalam sini
+  });
+  // -----------------------------------------
 
-  // Fungsi untuk menampilkan dialog konfirmasi
+  // Fungsi untuk menampilkan dialog konfirmasi (Tidak ada perubahan)
   void _showConfirmationDialog(
     BuildContext context, {
     required String title,
@@ -85,23 +92,26 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildHeader(context),
-              _buildProfileCard(),
-              _buildPersonalInfoSection(),
-              _buildActionButtons(context),
-            ],
-          ),
+    // --- PERUBAHAN: Scaffold dihapus ---
+    // Widget ini sekarang siap dimasukkan ke dalam Scaffold di main_screen.dart
+    return SafeArea(
+      child: SingleChildScrollView(
+        // --- PERBAIKAN 2: Controller dipasang di sini ---
+        controller: scrollController,
+        // ------------------------------------------
+        child: Column(
+          children: [
+            _buildHeader(context),
+            _buildProfileCard(),
+            _buildPersonalInfoSection(), // <-- Ada perubahan di dalam sini
+            _buildActionButtons(context), // <-- Ada perubahan di dalam sini
+          ],
         ),
       ),
     );
   }
 
+  // Header tetap sama sesuai gambar
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
@@ -114,6 +124,7 @@ class ProfileScreen extends StatelessWidget {
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
+                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 5,
                   offset: const Offset(0, 2),
@@ -135,6 +146,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+  // Profile card tetap sama sesuai gambar
   Widget _buildProfileCard() {
     return Container(
       margin: const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 20),
@@ -182,6 +194,7 @@ class ProfileScreen extends StatelessWidget {
                       Text(
                         'Manajemen Sistem | Administrator',
                         style: TextStyle(
+                          // ignore: deprecated_member_use
                           color: Colors.white.withOpacity(0.9),
                           fontSize: 12,
                         ),
@@ -216,6 +229,7 @@ class ProfileScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
+                          // ignore: deprecated_member_use
                           color: Colors.black.withOpacity(0.1),
                           blurRadius: 4,
                           offset: const Offset(1, 1),
@@ -238,6 +252,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+  // --- PERUBAHAN: Disesuaikan dengan gambar ---
   Widget _buildPersonalInfoSection() {
     return Column(
       children: [
@@ -247,7 +262,7 @@ class ProfileScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Detail Pribadi',
+                'Data Pribadi', // <-- Diubah
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               ElevatedButton(
@@ -269,16 +284,17 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color(0xFFF6F8FA),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
+              // ignore: deprecated_member_use
               BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
             ],
           ),
           child: Column(
             children: [
               _buildTextField(
-                label: 'Nama Lengkap',
+                label: 'Nama Pengguna', // <-- Diubah
                 hint: 'Nama Lengkap',
                 icon: Icons.person_outline,
               ),
@@ -293,26 +309,7 @@ class ProfileScreen extends StatelessWidget {
                 hint: 'example@gmail.com',
                 icon: Icons.email_outlined,
               ),
-              _buildTextField(
-                label: 'Nomor Telepon',
-                hint: '+62**********',
-                icon: Icons.phone_outlined,
-              ),
-              _buildTextField(
-                label: 'Alamat Lengkap',
-                hint: 'Alamat Lengkap',
-                icon: Icons.location_on_outlined,
-              ),
-              _buildTextField(
-                label: 'ID Sensor',
-                hint: 'Masukkan ID Sensor',
-                icon: Icons.sensors,
-              ),
-              _buildTextField(
-                label: 'Bahasa',
-                hint: 'Bahasa Indonesia',
-                icon: Icons.language,
-              ),
+              // <-- Field lainnya dihapus agar sesuai gambar
             ],
           ),
         ),
@@ -357,25 +354,17 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+  // --- PERUBAHAN: Disesuaikan dengan gambar ---
   Widget _buildActionButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          _buildOptionTile(
-            icon: Icons.settings_outlined,
-            text: 'Pengaturan',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-            },
-          ),
-          const SizedBox(height: 15),
+          // --- Tombol Pengaturan dihapus ---
           _buildActionButton(
             text: 'Ganti Akun',
             color: const Color(0xFFF07F2F),
+            icon: Icons.refresh, // <-- Ikon ditambahkan
             onPressed: () {
               _showConfirmationDialog(
                 context,
@@ -390,6 +379,7 @@ class ProfileScreen extends StatelessWidget {
           _buildActionButton(
             text: 'Keluar',
             color: Colors.red,
+            icon: Icons.power_settings_new, // <-- Ikon ditambahkan
             onPressed: () {
               _showConfirmationDialog(
                 context,
@@ -405,36 +395,13 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildOptionTile({
-    required IconData icon,
-    required String text,
-    VoidCallback? onTap,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
-        ],
-      ),
-      child: ListTile(
-        leading: Icon(icon, color: Colors.grey),
-        title: Text(text),
-        trailing: const Icon(
-          Icons.arrow_forward_ios,
-          size: 16,
-          color: Colors.grey,
-        ),
-        onTap: onTap,
-      ),
-    );
-  }
+  // --- Widget _buildOptionTile dihapus karena tidak dipakai ---
 
+  // --- PERUBAHAN: Ditambahkan parameter icon & Row ---
   Widget _buildActionButton({
     required String text,
     required Color color,
+    required IconData icon, // <-- Parameter ikon ditambahkan
     required VoidCallback onPressed,
   }) {
     return SizedBox(
@@ -447,11 +414,20 @@ class ProfileScreen extends StatelessWidget {
           foregroundColor: color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
+            // ignore: deprecated_member_use
             side: BorderSide(color: color.withOpacity(0.5)),
           ),
           elevation: 0,
         ),
-        child: Text(text),
+        // --- Child diubah menjadi Row ---
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: color),
+            const SizedBox(width: 10),
+            Text(text),
+          ],
+        ),
       ),
     );
   }
