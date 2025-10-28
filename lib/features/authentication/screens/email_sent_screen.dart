@@ -182,7 +182,7 @@ class EmailSentScreen extends StatelessWidget {
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
           child: Container(
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.1)),
+            decoration: BoxDecoration(color: Colors.white.withAlpha(26)),
           ),
         ),
       ],

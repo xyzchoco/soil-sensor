@@ -229,6 +229,7 @@ class ResetPasswordScreen extends StatelessWidget {
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
           child: Container(
+            // ignore: deprecated_member_use
             decoration: BoxDecoration(color: Colors.white.withOpacity(0.1)),
           ),
         ),

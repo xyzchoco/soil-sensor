@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
             child: Container(
-              decoration: BoxDecoration(color: Colors.white.withOpacity(0.1)),
+              decoration: BoxDecoration(color: Colors.white.withAlpha(26)),
             ),
           ),
 
@@ -123,6 +123,7 @@ class LoginScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           elevation: 4,
+                          // ignore: deprecated_member_use
                           shadowColor: Colors.orange.withOpacity(0.5),
                         ),
                         child: const Text(
@@ -282,6 +283,7 @@ class LoginScreen extends StatelessWidget {
             ),
             prefixIcon: Icon(icon, color: Colors.grey),
             filled: true,
+            // ignore: deprecated_member_use
             fillColor: Colors.white.withOpacity(0.5),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -323,6 +325,7 @@ class LoginScreen extends StatelessWidget {
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(vertical: 14),
+        // ignore: deprecated_member_use
         backgroundColor: Colors.white.withOpacity(0.8),
         side: BorderSide(color: Colors.grey.shade300),
         shape: RoundedRectangleBorder(

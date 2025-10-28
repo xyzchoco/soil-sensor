@@ -145,7 +145,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
             prefixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
             filled: true,
-            fillColor: Colors.white.withOpacity(0.5),
+            fillColor: Colors.white.withAlpha(128),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(90), // Corner radius 90
               borderSide: BorderSide.none,
@@ -215,7 +215,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
           child: Container(
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.1)),
+            decoration: BoxDecoration(color: Colors.white.withAlpha(26)),
           ),
         ),
       ],
